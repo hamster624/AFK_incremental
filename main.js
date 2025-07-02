@@ -134,7 +134,7 @@ function resetGame() {
 function evalMulti() {
   const base = new ExpantaNum(1.001);
   const upg1 = amountUpg1.mul(new ExpantaNum(0.001));
-  const upg2 = amountUpg2.mul(new ExpantaNum(0.01));
+  const upg2 = amountUpg2.mul(new ExpantaNum(0.004));
   multi = ExpantaNum.mul(base.add(upg1).add(upg2),1000).ceil().div(1000); // Yeah there wasnt an easier way to round it i think idk
 }
 
