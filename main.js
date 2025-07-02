@@ -67,11 +67,11 @@ function saveGame() {
     });
     const { obfuscatedData, shift } = obfuscateData(saveData);
     const encodedData = toBase64(obfuscatedData);
-    localStorage.setItem("afksave", JSON.stringify({ data: encodedData, shift: shift }));
+    localStorage.setItem("afk_save", JSON.stringify({ data: encodedData, shift: shift }));
 }
 
 function loadGame() {
-    const savedData = localStorage.getItem("afksave");
+    const savedData = localStorage.getItem("afk_save");
     if (savedData) {
         const parsed = JSON.parse(savedData);
         const decodedData = fromBase64(parsed.data);
@@ -127,7 +127,7 @@ function resetGame() {
   multi = new ExpantaNum(1.001);
   upg1Cost = new ExpantaNum(3);
   upg2Cost = new ExpantaNum(10);
-  localStorage.removeItem("afksave");
+  localStorage.removeItem("afk_save");
   saveGame();
   updateDisplay();
 }
