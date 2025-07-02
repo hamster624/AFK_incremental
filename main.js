@@ -145,7 +145,7 @@ function updateDisplay() {
   document.getElementById("upg1Cost").innerText = format(upg1Cost, 3);
   document.getElementById("upg2Cost").innerText = format(upg2Cost, 3);
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
-  document.getElementById("Formula").innerText = `10^^(slog(value)*${format(multi, 3)})`;
+  document.getElementById("Formula").innerText = `Formula: 10^^(slog(value)*${format(multi, 3)})`;
   document.getElementById("willgainreb").innerText = `Will gain rebirths: ${format(value.slog().log10(), 3)}`;
 }
 
