@@ -1,7 +1,6 @@
 let notationFormat = 'expanta'; // default
 
 document.addEventListener('DOMContentLoaded', function() {
-  // inject calculator UI
   const calculatorHTML = `
     <div id="calculatormenu" style="display: none; position: fixed; inset-block-start: 20%; inset-inline-start: 20%; inline-size: 400px; background: black; color: white; border: 1px solid white; padding: 20px; z-index: 1000; max-block-size: 80vh; overflow-y: auto;">
       <h3 style="text-align: center;">Calculator</h3>
@@ -44,8 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let E = ExpantaNum;
   let lastOperation = null;
-
-  // perform operations
   window.performOperation = function(operation) {
     const num1Str = document.getElementById('num1').value.replace(/,/g, '');
     const num2Str = document.getElementById('num2').value.replace(/,/g, '');
