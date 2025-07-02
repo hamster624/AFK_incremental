@@ -21,22 +21,3 @@ body {
     margin: 5px;
     cursor: pointer;
   }
-  
-  #adminPanel {
-    margin-block-start: 40px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-  }
-  
-  #adminPanel input {
-    padding: 5px;
-    font-size: 1em;
-    margin-inline-end: 10px;
-  }
-  
-  #adminPanel button {
-    padding: 10px;
-    font-size: 1em;
-  }
-  
