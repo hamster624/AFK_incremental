@@ -2,13 +2,16 @@ let value = new ExpantaNum(10);
 let rebirths = new ExpantaNum(0);
 let amountUpg1 = new ExpantaNum(0);
 let amountUpg2 = new ExpantaNum(0);
+let amountUpg3 = new ExpantaNum(0);
 let multi = new ExpantaNum(1.001);
+let base = new ExpantaNum(10);
 let upg1Cost = new ExpantaNum(3);
 let upg2Cost = new ExpantaNum(10);
+let upg3Cost = new ExpantaNum(750);
 
 const rebirthThreshold = new ExpantaNum("(10^)^9 10");
 function updateValue() {
-  value = ExpantaNum.tetr(10, ExpantaNum.mul(ExpantaNum.slog(value), multi))
+  value = ExpantaNum.tetr(base, ExpantaNum.mul(ExpantaNum.slog(value), multi))
 }
 function obfuscateData(str) {
     const shift = Math.floor(Math.random() * 256);
@@ -60,10 +63,13 @@ function saveGame() {
         value: value.toString(),
         rebirths: rebirths.toString(),
         multi: multi.toString(),
+        base: base.toString(),
         upg1Cost: upg1Cost.toString(),
         upg2Cost: upg2Cost.toString(),
+        upg3Cost: upg3Cost.toString(),
         amountUpg1: amountUpg1.toString(),
         amountUpg2: amountUpg2.toString(),
+        amountUpg3: amountUpg3.toString(),
     });
     const { obfuscatedData, shift } = obfuscateData(saveData);
     const encodedData = toBase64(obfuscatedData);
@@ -79,13 +85,16 @@ function loadGame() {
         if (decodedData) {
             const deobfuscatedData = deobfuscateData(decodedData, parsed.shift);
             const gameData = JSON.parse(deobfuscatedData);
-            value = new ExpantaNum(gameData.value);
-            rebirths = new ExpantaNum(gameData.rebirths);
-            multi = new ExpantaNum(gameData.multi);
-            upg1Cost = new ExpantaNum(gameData.upg1Cost);
-            upg2Cost = new ExpantaNum(gameData.upg2Cost);
-            amountUpg1 = new ExpantaNum(gameData.amountUpg1);
-            amountUpg2 = new ExpantaNum(gameData.amountUpg2);
+            value = new ExpantaNum(gameData.value || 10);
+            rebirths = new ExpantaNum(gameData.rebirths || 0);
+            multi = new ExpantaNum(gameData.multi || 1.001);
+            base = new ExpantaNum(gameData.base || 10);
+            upg1Cost = new ExpantaNum(gameData.upg1Cost || 3);
+            upg2Cost = new ExpantaNum(gameData.upg2Cost || 10);
+            upg3Cost = new ExpantaNum(gameData.upg3Cost || 750);
+            amountUpg1 = new ExpantaNum(gameData.amountUpg1 || 0);
+            amountUpg2 = new ExpantaNum(gameData.amountUpg2 || 0);
+            amountUpg3 = new ExpantaNum(gameData.amountUpg3 || 0);
             updateDisplay();
             updateDisplay2();
         }
@@ -121,26 +130,181 @@ function buyUpgrade2() {
     updateDisplay2();
   }
 }
-
+function buyUpgrade3() {
+  if (rebirths.gte(upg3Cost)) {
+    rebirths = rebirths.sub(upg3Cost);
+    amountUpg3 = amountUpg3.add(1);
+    upg3Cost   = upg3Cost.mul(1.25);
+    updateDisplay();
+    updateDisplay2();
+  }
+}
 function resetGame() {
   value = new ExpantaNum(10);
   rebirths = new ExpantaNum(0);
   amountUpg1 = new ExpantaNum(0);
   amountUpg2 = new ExpantaNum(0);
+  amountUpg3 = new ExpantaNum(0);
   multi = new ExpantaNum(1.001);
+  base = new ExpantaNum(10);
   upg1Cost = new ExpantaNum(3);
   upg2Cost = new ExpantaNum(10);
+  upg3Cost = new ExpantaNum(750);
   localStorage.removeItem("afk_save");
   saveGame();
   updateDisplay();
 }
-function evalMulti() {
-  const base = new ExpantaNum(1.001);
-  const upg1 = amountUpg1.mul(new ExpantaNum(0.001));
-  const upg2 = amountUpg2.mul(new ExpantaNum(0.004));
-  multi = ExpantaNum.mul(base.add(upg1).add(upg2),1000).ceil().div(1000); // Yeah there wasnt an easier way to round it i think idk
+function getSaveString() {
+    const saveData = JSON.stringify({
+        value: value.toString(),
+        rebirths: rebirths.toString(),
+        multi: multi.toString(),
+        base: base.toString(),
+        upg1Cost: upg1Cost.toString(),
+        upg2Cost: upg2Cost.toString(),
+        upg3Cost: upg3Cost.toString(),
+        amountUpg1: amountUpg1.toString(),
+        amountUpg2: amountUpg2.toString(),
+        amountUpg3: amountUpg3.toString(),
+    });
+    const { obfuscatedData, shift } = obfuscateData(saveData);
+    const encodedData = toBase64(obfuscatedData);
+    return JSON.stringify({ data: encodedData, shift });
+}
+const saveInput = document.createElement('textarea');
+saveInput.id = 'saveInput';
+saveInput.placeholder = 'Paste your save string here';
+saveInput.rows = 4;
+saveInput.cols = 50;
+saveInput.style.display = 'none';
+saveInput.style.marginTop = '75px';
+saveInput.style.backgroundColor = 'black';
+saveInput.style.color = 'white';
+saveInput.style.border = '1px solid white';
+saveInput.style.padding = '5px';
+saveInput.style.fontFamily = 'monospace';
+
+const loadButton = document.createElement('button');
+loadButton.innerText = "Load Save";
+loadButton.id = "loadButton";
+loadButton.style.position = 'fixed';
+loadButton.style.top = '100px';
+loadButton.style.left = '10px';
+loadButton.style.backgroundColor = 'black';
+loadButton.style.color = 'white';
+loadButton.style.border = '1px solid white';
+loadButton.style.padding = '5px 10px';
+loadButton.style.zIndex = '999';
+
+let textareaVisible = false;
+loadButton.onclick = () => {
+    if (!textareaVisible) {
+        saveInput.style.display = 'block';
+        textareaVisible = true;
+        saveInput.focus();
+    } else {
+        const input = saveInput.value.trim();
+        if (!input) {
+            alert("Please paste your save string in the textarea first.");
+            saveInput.style.display = 'none';
+            textareaVisible = false;
+            saveInput.value = '';
+            return;
+        }
+
+        try {
+            const decoded = fromBase64(input);
+            const shift = decoded.charCodeAt(0);
+            const obfuscated = decoded.slice(1);
+            const deob = deobfuscateData(obfuscated, shift);
+            const data = JSON.parse(deob);
+
+            value = new ExpantaNum(data.value || 10);
+            rebirths = new ExpantaNum(data.rebirths || 0);
+            multi = new ExpantaNum(data.multi || 1.001);
+            base = new ExpantaNum(data.base || 10);
+            upg1Cost = new ExpantaNum(data.upg1Cost || 3);
+            upg2Cost = new ExpantaNum(data.upg2Cost || 10);
+            upg3Cost = new ExpantaNum(data.upg3Cost || 750);
+            amountUpg1 = new ExpantaNum(data.amountUpg1 || 0);
+            amountUpg2 = new ExpantaNum(data.amountUpg2 || 0);
+            amountUpg3 = new ExpantaNum(data.amountUpg3 || 0);
+
+            updateDisplay();
+            updateDisplay2();
+            saveGame();
+            alert("Save loaded successfully!");
+        } catch (e) {
+            alert("Invalid or corrupted save.");
+        }
+
+        saveInput.style.display = 'none';
+        textareaVisible = false;
+        saveInput.value = '';
+    }
+};
+
+document.body.appendChild(loadButton);
+
+const updateTextareaPosition = () => {
+    const rect = loadButton.getBoundingClientRect();
+    saveInput.style.position = 'fixed';
+    saveInput.style.top = (rect.bottom + 5) + 'px';
+    saveInput.style.left = rect.left + 'px';
+    saveInput.style.zIndex = '999';
+};
+updateTextareaPosition();
+window.addEventListener('resize', updateTextareaPosition);
+document.body.appendChild(saveInput);
+
+const saveButton = document.createElement('button');
+saveButton.innerText = "Copy Save";
+saveButton.id = "SaveButton";
+saveButton.style.position = 'fixed';
+saveButton.style.top = '150px';
+saveButton.style.left = '10px';
+saveButton.style.backgroundColor = 'black';
+saveButton.style.color = 'white';
+saveButton.style.border = '1px solid white';
+saveButton.style.padding = '5px 10px';
+saveButton.style.zIndex = '999';
+saveButton.onclick = copyGameSave;
+document.body.appendChild(saveButton);
+
+function copyGameSave() {
+    const saveData = JSON.stringify({
+        value: value.toString(),
+        rebirths: rebirths.toString(),
+        multi: multi.toString(),
+        base: base.toString(),
+        upg1Cost: upg1Cost.toString(),
+        upg2Cost: upg2Cost.toString(),
+        upg3Cost: upg3Cost.toString(),
+        amountUpg1: amountUpg1.toString(),
+        amountUpg2: amountUpg2.toString(),
+        amountUpg3: amountUpg3.toString(),
+    });
+    const { obfuscatedData, shift } = obfuscateData(saveData);
+    const encoded = toBase64(String.fromCharCode(shift) + obfuscatedData);
+
+    navigator.clipboard.writeText(encoded).then(() => {
+        alert("Save copied to clipboard!");
+    }).catch(() => {
+        alert("Failed to copy save.");
+    });
 }
 
+function evalMulti() {
+  const original = new ExpantaNum(1.001);
+  const upg1 = amountUpg1.mul(new ExpantaNum(0.001));
+  const upg2 = amountUpg2.mul(new ExpantaNum(0.004));
+  multi = ExpantaNum.mul(original.add(upg1).add(upg2),1000).ceil().div(1000); // Yeah there wasnt an easier way to round it i think idk
+}
+function evalBase() {
+  const original = new ExpantaNum(10);
+  const upg1 = amountUpg3.mul(new ExpantaNum(0.5));
+  base = ExpantaNum.mul(original.add(upg1),10).ceil().div(10);
+}
 function updateDisplay() {
   document.getElementById("value").innerText    = format(value, 3);
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
@@ -148,10 +312,12 @@ function updateDisplay() {
 }
 function updateDisplay2() { // this is for more speed incase your device is poor because we dont need to update these ones if they aren't changing
   evalMulti();
+  evalBase();
   document.getElementById("upg1Cost").innerText = format(upg1Cost, 3);
   document.getElementById("upg2Cost").innerText = format(upg2Cost, 3);
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
-  document.getElementById("Formula").innerText = `Formula: 10^^(slog(value)*${format(multi, 3)})`;
+  document.getElementById("Base").innerText = `Base: ${format(base, 1)}`;
+  document.getElementById("Formula").innerText = `Formula: ${format(base, 1)}↑↑(slog(value)×${format(multi, 3)})`;
 }
 
 setInterval(() => {
