@@ -8,15 +8,19 @@
 </head>
 <body>
   <h1>AFK Incremental</h1>
-  <div id="value">2</div>
+  <div id="value">10</div>
   <div id="rebirths">Rebirths: 0</div>
   <div id="Multi">Multi: 1.001</div>
-  <div id="Formula">Formula 10^^(slog(value)*1.001)</div>
+  <div id="Base">Base: 10</div>
+  <div id="Formula">Formula 10↑↑(slog(value)×1.001)</div>
   <div class="upgrade">
     <button onclick="buyUpgrade1()">Upgrade 1: Increase multiplier by +0.001 | Cost: <span id="upg1Cost">2</span></button>
   </div>
   <div class="upgrade">
     <button onclick="buyUpgrade2()">Upgrade 2: Increase the multiplier by +0.004 | Cost: <span id="upg2Cost">10</span></button>
+  </div>  
+  <div class="upgrade">
+    <button onclick="buyUpgrade3()">Upgrade 3: Increase the base by +0.5 | Cost: <span id="upg2Cost">750</span></button>
   </div>  
   <button onclick="rebirth()">Rebirth (Cost:1F10)</button>
   <button onclick="resetGame()">Reset Game</button>
