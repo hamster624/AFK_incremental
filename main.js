@@ -302,7 +302,7 @@ function evalMulti() {
 }
 function evalBase() {
   const original = new ExpantaNum(10);
-  const upg1 = amountUpg3.mul(new ExpantaNum(0.5));
+  const upg1 = amountUpg3.mul(new ExpantaNum(1));
   base = ExpantaNum.mul(original.add(upg1),10).ceil().div(10);
 }
 function updateDisplay() {
