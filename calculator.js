@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   const calculatorButtonHTML = `
-    <button id="calculatorButton" onclick="openCalculator()" style="position: fixed; inset-block-start: 10px; inset-inline-start: 10px; background: black; color: white; border: 1px solid white; padding: 10px; z-index: 1000;">
+    <button id="calculatorButton" onclick="openCalculator()" style="position: fixed; inset-block-start: 55px; inset-inline-start: 10px; background: black; color: white; border: 1px solid white; padding: 10px; z-index: 1000;">
       Calculator
     </button>
   `;
