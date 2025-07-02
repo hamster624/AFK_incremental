@@ -316,6 +316,9 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("upg1Cost").innerText = format(upg1Cost, 3);
   document.getElementById("upg2Cost").innerText = format(upg2Cost, 3);
   document.getElementById("upg3Cost").innerText = format(upg3Cost, 3);
+  document.getElementById("upg1amount").innerText = format(amountUpg1, 0);
+  document.getElementById("upg2amount").innerText = format(amountUpg2, 0);
+  document.getElementById("upg3amount").innerText = format(amountUpg3, 0);
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
   document.getElementById("Base").innerText = `Base: ${format(base, 1)}`;
   document.getElementById("Formula").innerText = `Formula: ${format(base, 1)}↑↑(slog(value)×${format(multi, 3)})`;
