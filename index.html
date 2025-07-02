@@ -15,6 +15,7 @@
   <div id="rebirths">Rebirths: 0</div>
   <div id="Multi">Multi: 1.001</div>
   <div id="Base">Base: 10</div>
+  <div id="pow">Power: 1</div>
   <div id="Formula">Formula 10↑↑(slog(value)×1.001)</div>
   <div class="upgrade">
     <button onclick="buyUpgrade1()">Upgrade 1: Increase multiplier by +0.001 | Cost: <span id="upg1Cost">2</span> | Bought: <span id="upg1amount">0</span></button>
@@ -24,7 +25,10 @@
   </div>  
   <div class="upgrade">
     <button onclick="buyUpgrade3()">Upgrade 3: Increase the base by +1 | Cost: <span id="upg3Cost">750</span> | Bought: <span id="upg3amount">0</span></button>
-  </div>  
+  </div>
+  <div class="upgrade">
+    <button onclick="buyUpgrade4()">Upgrade 4: Increase power by +0.0001 | Cost: <span id="upg4Cost">1250</span> | Bought: <span id="upg4amount">0</span></button>
+  </div>
   <button onclick="rebirth()">Rebirth (Cost:1F10)</button>
   <button onclick="resetGame()">Reset Game</button>
   <div id="willgainreb">Will gain rebirths:</div>
