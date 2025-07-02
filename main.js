@@ -87,6 +87,7 @@ function loadGame() {
             amountUpg1 = new ExpantaNum(gameData.amountUpg1);
             amountUpg2 = new ExpantaNum(gameData.amountUpg2);
             updateDisplay();
+            updateDisplay2();
         }
     }
 }
@@ -106,6 +107,7 @@ function buyUpgrade1() {
     amountUpg1 = amountUpg1.add(1);
     upg1Cost = upg1Cost.add(2);
     updateDisplay();
+    updateDisplay2();
   }
 }
 
@@ -116,6 +118,7 @@ function buyUpgrade2() {
     amountUpg2 = amountUpg2.add(1);
     upg2Cost   = upg2Cost.mul(1.5);
     updateDisplay();
+    updateDisplay2();
   }
 }
 
@@ -139,16 +142,17 @@ function evalMulti() {
 }
 
 function updateDisplay() {
-  evalMulti();
   document.getElementById("value").innerText    = format(value, 3);
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
+  document.getElementById("willgainreb").innerText = `Will gain rebirths: ${format(value.slog().log10(), 3)}`;
+}
+function updateDisplay2() { // this is for more speed incase your device is poor because we dont need to update these ones if they aren't changing
+  evalMulti();
   document.getElementById("upg1Cost").innerText = format(upg1Cost, 3);
   document.getElementById("upg2Cost").innerText = format(upg2Cost, 3);
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
   document.getElementById("Formula").innerText = `Formula: 10^^(slog(value)*${format(multi, 3)})`;
-  document.getElementById("willgainreb").innerText = `Will gain rebirths: ${format(value.slog().log10(), 3)}`;
 }
-
 
 setInterval(() => {
   updateValue();
