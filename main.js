@@ -161,4 +161,5 @@ setInterval(() => {
 setInterval(() => {
     saveGame();
   }, 500);
+window.onload = updateDisplay2;
 window.onload = loadGame;
