@@ -335,7 +335,7 @@ function evalBase() {
   base = ExpantaNum.mul(original.add(upg1),10).ceil().div(10);
 }
 function evalpow() {
-  const original = new ExpantaNum(10);
+  const original = new ExpantaNum(1);
   const upg1 = amountUpg4.mul(new ExpantaNum(0.0001));
   pow = ExpantaNum.mul(original.add(upg1),10000).ceil().div(10000);
 }
@@ -347,6 +347,7 @@ function updateDisplay() {
 function updateDisplay2() { // this is for more speed incase your device is poor because we dont need to update these ones if they aren't changing
   evalMulti();
   evalBase();
+  evalpow();
   document.getElementById("upg1Cost").innerText = format(upg1Cost, 3);
   document.getElementById("upg2Cost").innerText = format(upg2Cost, 3);
   document.getElementById("upg3Cost").innerText = format(upg3Cost, 3);
