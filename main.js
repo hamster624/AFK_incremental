@@ -16,6 +16,13 @@ const rebirthThreshold = new ExpantaNum("(10^)^9 10");
 function updateValue() {
 value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(ExpantaNum.slog(value), multi),pow));
 }
+function formatTime(seconds) {
+    seconds = Math.floor(seconds);
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs}h ${mins}m ${secs}s`;
+}
 function obfuscateData(str) {
 const shift = Math.floor(Math.random() * 256);
 let obfuscated = '';
@@ -363,7 +370,10 @@ document.getElementById("Base").innerText = Base: ${format(base, 1)};
 document.getElementById("pow").innerText = Power: ${format(pow, 4)};
 document.getElementById("Formula").innerText = Formula: Value = ${format(base, 1)}↑↑((slog(value)×${format(multi, 3)})↑${format(pow, 4)});
 }
-
+setInterval(() => {
+    playtime = playtime.add(1);
+    document.getElementById("playtime").innerText = `Playtime: ${formatTime(playtime.toNumber())}`;
+}, 1000);
 setInterval(() => {
 updateValue();
 updateDisplay();
