@@ -16,6 +16,13 @@ const rebirthThreshold = new ExpantaNum("(10^)^9 10");
 function updateValue() {
 value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(ExpantaNum.slog(value), multi),pow));
 }
+function formatTime(seconds) {
+    seconds = Math.floor(seconds);
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs}h ${mins}m ${secs}s`;
+}
 function obfuscateData(str) {
 const shift = Math.floor(Math.random() * 256);
 let obfuscated = '';
@@ -76,6 +83,7 @@ amountUpg1: amountUpg1.toString(),
 amountUpg2: amountUpg2.toString(),
 amountUpg3: amountUpg3.toString(),
 amountUpg4: amountUpg4.toString(),
+playtime: playtime.toString(),
 });
 const { obfuscatedData, shift } = obfuscateData(saveData);
 const encodedData = toBase64(obfuscatedData);
@@ -103,7 +111,8 @@ if (decodedData) {
         amountUpg1 = new ExpantaNum(gameData.amountUpg1 || 0);  
         amountUpg2 = new ExpantaNum(gameData.amountUpg2 || 0);  
         amountUpg3 = new ExpantaNum(gameData.amountUpg3 || 0);  
-        amountUpg4 = new ExpantaNum(gameData.amountUpg4 || 0);  
+        amountUpg4 = new ExpantaNum(gameData.amountUpg4 || 0);
+        playtime = new ExpantaNum(gameData.playtime || 0);
         updateDisplay();  
         updateDisplay2();  
     }  
@@ -171,6 +180,7 @@ upg1Cost = new ExpantaNum(3);
 upg2Cost = new ExpantaNum(10);
 upg3Cost = new ExpantaNum(750);
 upg4Cost = new ExpantaNum(750);
+playtime = new ExpantaNum(0);
 localStorage.removeItem("afk_save");
 saveGame();
 updateDisplay();
@@ -190,6 +200,7 @@ amountUpg1: amountUpg1.toString(),
 amountUpg2: amountUpg2.toString(),
 amountUpg3: amountUpg3.toString(),
 amountUpg4: amountUpg4.toString(),
+playitme: playtime.toString(),
 });
 const { obfuscatedData, shift } = obfuscateData(saveData);
 const encodedData = toBase64(obfuscatedData);
@@ -256,7 +267,7 @@ try {
         amountUpg2 = new ExpantaNum(data.amountUpg2 || 0);  
         amountUpg3 = new ExpantaNum(data.amountUpg3 || 0);  
         amountUpg4 = new ExpantaNum(data.amountUpg4 || 0);  
-
+        playtime = new ExpantaNum(data.playtime || 0);
         updateDisplay();  
         updateDisplay2();  
         saveGame();  
@@ -363,7 +374,10 @@ document.getElementById("Base").innerText = Base: ${format(base, 1)};
 document.getElementById("pow").innerText = Power: ${format(pow, 4)};
 document.getElementById("Formula").innerText = Formula: Value = ${format(base, 1)}↑↑((slog(value)×${format(multi, 3)})↑${format(pow, 4)});
 }
-
+setInterval(() => {
+    playtime = playtime.add(0.1);
+    document.getElementById("playtime").innerText = `Playtime: ${formatTime(playtime.toNumber())}`;
+}, 100);
 setInterval(() => {
 updateValue();
 updateDisplay();
