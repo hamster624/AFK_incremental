@@ -1,4 +1,3 @@
-
 let value = new ExpantaNum(10);
 let rebirths = new ExpantaNum(0);
 let amountUpg1 = new ExpantaNum(0);
