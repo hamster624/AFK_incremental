@@ -361,7 +361,7 @@ function resetGame() {
   upg6Cost = new ExpantaNum(10);
   upg7Cost = new ExpantaNum(20);
   upg8Cost = new ExpantaNum(50);
-  localStorage.removeItem("afk_save_test");
+  localStorage.removeItem("afk_save");
   saveGame();
   updateDisplay();
   updateDisplay2();
