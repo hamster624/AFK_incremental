@@ -224,7 +224,7 @@ function rebirth() {
 }
 function transcend() {
   if (value.gte(transcendThreshold)) {
-    const earnedtranscend = value.slog().log10().log10().log10();
+    const earnedtranscend = value.slog().log10().log10().log10().add(1);
     transcends = transcends.add(earnedtranscend);
     value = new ExpantaNum(10);
     rebirths = new ExpantaNum(0);
@@ -334,8 +334,8 @@ function resetGame() {
   multi = new ExpantaNum(1.001);
   base = new ExpantaNum(10);
   pow = new ExpantaNum(1);
-  transcends = new ExpantaNum(0);
-  transcended = new ExpantaNum(0); 
+  transcends = new ExpantaNum(5);
+  transcended = new ExpantaNum(1); 
   playtime = 0;
   amountUpg1 = new ExpantaNum(0);
   amountUpg2 = new ExpantaNum(0);
