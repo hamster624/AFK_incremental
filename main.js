@@ -336,7 +336,6 @@ function resetGame() {
   pow = new ExpantaNum(1);
   transcends = new ExpantaNum(5);
   transcended = new ExpantaNum(1); 
-  playtime = 0;
   amountUpg1 = new ExpantaNum(0);
   amountUpg2 = new ExpantaNum(0);
   amountUpg3 = new ExpantaNum(0);
