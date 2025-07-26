@@ -694,7 +694,7 @@ function updateDisplay() {
   document.getElementById("willgainreb").innerText = 
     `Will gain rebirths: ${format(currentWillGain, 3)}${willOomsText}`;
   document.getElementById("willgaintran").innerText = 
-    `Will gain transcend: ${format(value.slog().log10().log10().log10(), 3)}`;
+    `Will gain transcend: ${format(value.slog().log10().log10().log10().add(1), 3)}`;
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
   prevValue        = currentValue;
   prevWillGainReb  = currentWillGain;
