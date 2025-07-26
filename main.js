@@ -34,7 +34,7 @@ let prevValue = value;
 let prevWillGainReb = value.slog().log10();
 const dt = 0.02;
 const rebirthThreshold = new ExpantaNum("(10^)^9 10");
-const transcendThreshold = new ExpantaNum("10^^ee25000");
+const transcendThreshold = new ExpantaNum("10^^ee10000");
 
 function updateValue() {
   value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(ExpantaNum.slog(value), multi),pow));
