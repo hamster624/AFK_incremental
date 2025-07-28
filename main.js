@@ -735,7 +735,7 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
   document.getElementById("Base").innerText = `Base: ${format(base, 1)}`;
   document.getElementById("pow").innerText = `Power: ${format(pow, 4)}`;
-  document.getElementById("Formula").innerText = `Value = ${format(base, 1)}↑↑((slog(value)×${format(multi, 3)})↑${format(pow, 4)})`;
+  document.getElementById("Formula").innerText = `Value = ${format(base, 1)}↑↑((slog(Value)×${format(multi, 3)})↑${format(pow, 4)})`;
 }
 function formatTime(seconds) {
   const hrs = Math.floor(seconds / 3600);
