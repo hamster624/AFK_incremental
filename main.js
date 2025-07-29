@@ -34,7 +34,7 @@ let prevValue = value;
 let prevWillGainReb = value.slog().log10();
 const dt = 0.02;
 const rebirthThreshold = new ExpantaNum("(10^)^9 10");
-const transcendThreshold = new ExpantaNum("10^^ee10000");
+const transcendThreshold = new ExpantaNum("10^^ee25000");
 
 function updateValue() {
   value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(ExpantaNum.slog(value), multi),pow));
@@ -224,7 +224,7 @@ function rebirth() {
 }
 function transcend() {
   if (value.gte(transcendThreshold)) {
-    const earnedtranscend = value.slog().log10().log10().log10().add(1);
+    const earnedtranscend = value.slog().log10().log10().log10();
     transcends = transcends.add(earnedtranscend);
     value = new ExpantaNum(10);
     rebirths = new ExpantaNum(0);
@@ -694,7 +694,7 @@ function updateDisplay() {
   document.getElementById("willgainreb").innerText = 
     `Will gain rebirths: ${format(currentWillGain, 3)}${willOomsText}`;
   document.getElementById("willgaintran").innerText = 
-    `Will gain transcend: ${format(value.slog().log10().log10().log10().add(1), 3)}`;
+    `Will gain transcend: ${format(value.slog().log10().log10().log10(), 3)}`;
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
   prevValue        = currentValue;
   prevWillGainReb  = currentWillGain;
@@ -735,7 +735,7 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
   document.getElementById("Base").innerText = `Base: ${format(base, 1)}`;
   document.getElementById("pow").innerText = `Power: ${format(pow, 4)}`;
-  document.getElementById("Formula").innerText = `Value = ${format(base, 1)}↑↑((slog(Value)×${format(multi, 3)})↑${format(pow, 4)})`;
+  document.getElementById("Formula").innerText = `Formula: Value = ${format(base, 1)}↑↑((slog(value)×${format(multi, 3)})↑${format(pow, 4)})`;
 }
 function formatTime(seconds) {
   const hrs = Math.floor(seconds / 3600);
