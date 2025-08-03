@@ -14,6 +14,7 @@ let amountUpg5 = new ExpantaNum(0);
 let amountUpg6 = new ExpantaNum(0);
 let amountUpg7 = new ExpantaNum(0);
 let amountUpg8 = new ExpantaNum(0);
+let amountUpg9 = new ExpantaNum(0);
 let amountUpg1cap = new ExpantaNum(40000);
 let amountUpg2cap = new ExpantaNum(15000);
 let amountUpg3cap = new ExpantaNum(30000);
@@ -22,6 +23,7 @@ let amountUpg5cap = new ExpantaNum(10);
 let amountUpg6cap = new ExpantaNum(5);
 let amountUpg7cap = new ExpantaNum(2);
 let amountUpg8cap = new ExpantaNum(1);
+let amountUpg9cap = new ExpantaNum(10);
 let upg1Cost = new ExpantaNum(3);
 let upg2Cost = new ExpantaNum(10);
 let upg3Cost = new ExpantaNum(750);
@@ -30,6 +32,7 @@ let upg5Cost = new ExpantaNum(5);
 let upg6Cost = new ExpantaNum(10);
 let upg7Cost = new ExpantaNum(20);
 let upg8Cost = new ExpantaNum(50);
+let upg9Cost = new ExpantaNum(60);
 let prevValue = value;
 let prevReb = value.slog().log10();
 // yikes those are a lot of variables
@@ -38,7 +41,7 @@ const rebirthThreshold = new ExpantaNum("(10^)^9 10");
 const transcendThreshold = new ExpantaNum("10^^ee10000");
 
 function updateValue() {
-  value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(ExpantaNum.slog(value), multi),pow));
+  value = ExpantaNum.tetr(base, ExpantaNum.pow(ExpantaNum.mul(multi, ExpantaNum.slog(value)),pow));
 }
 
 function floor(x) {
@@ -148,6 +151,7 @@ function saveGame() {
         upg6Cost: upg6Cost.toString(),
         upg7Cost: upg7Cost.toString(),
         upg8Cost: upg8Cost.toString(),
+        upg9Cost: upg9Cost.toString(),
         amountUpg1: amountUpg1.toString(),
         amountUpg2: amountUpg2.toString(),
         amountUpg3: amountUpg3.toString(),
@@ -156,6 +160,7 @@ function saveGame() {
         amountUpg6: amountUpg6.toString(),
         amountUpg7: amountUpg7.toString(),
         amountUpg8: amountUpg8.toString(),
+        amountUpg9: amountUpg9.toString(),
         amountUpg1cap: amountUpg1cap.toString(),
         amountUpg2cap: amountUpg2cap.toString(),
         amountUpg3cap: amountUpg3cap.toString(),
@@ -164,6 +169,7 @@ function saveGame() {
         amountUpg6cap: amountUpg6cap.toString(),
         amountUpg7cap: amountUpg7cap.toString(),
         amountUpg8cap: amountUpg8cap.toString(),
+        amountUpg9cap: amountUpg9cap.toString(),
     });
     const { obfuscatedData, shift } = obfuscateData(saveData);
     const encodedData = toBase64(obfuscatedData);
@@ -192,6 +198,7 @@ function loadGame() {
             upg6Cost = new ExpantaNum(gameData.upg6Cost || 10);
             upg7Cost = new ExpantaNum(gameData.upg7Cost || 20);
             upg8Cost = new ExpantaNum(gameData.upg8Cost || 50);
+            upg9Cost = new ExpantaNum(gameData.upg9Cost || 60);
             amountUpg1 = new ExpantaNum(gameData.amountUpg1 || 0);
             amountUpg2 = new ExpantaNum(gameData.amountUpg2 || 0);
             amountUpg3 = new ExpantaNum(gameData.amountUpg3 || 0);
@@ -200,6 +207,7 @@ function loadGame() {
             amountUpg6 = new ExpantaNum(gameData.amountUpg6 || 0);
             amountUpg7 = new ExpantaNum(gameData.amountUpg7 || 0);
             amountUpg8 = new ExpantaNum(gameData.amountUpg8 || 0);
+            amountUpg9 = new ExpantaNum(gameData.amountUpg9 || 0);
             amountUpg1cap = new ExpantaNum(gameData.amountUpg1cap || 40000);
             amountUpg2cap = new ExpantaNum(gameData.amountUpg2cap || 15000);
             amountUpg3cap = new ExpantaNum(gameData.amountUpg3cap || 30000);
@@ -208,6 +216,7 @@ function loadGame() {
             amountUpg6cap = new ExpantaNum(gameData.amountUpg6cap || 5);
             amountUpg7cap = new ExpantaNum(gameData.amountUpg7cap || 2);
             amountUpg8cap = new ExpantaNum(gameData.amountUpg8cap || 1);
+            amountUpg9cap = new ExpantaNum(gameData.amountUpg9cap || 10);
             updateDisplay();
             updateDisplay2();
         }
@@ -332,6 +341,16 @@ function buyUpgrade8() {
     evalcosts();
   }
 }
+function buyUpgrade9() {
+  if (transcends.gte(upg9Cost) && amountUpg9.lt(amountUpg9cap)) {
+    transcends = transcends.sub(upg9Cost);
+    amountUpg9 = amountUpg9.add(1);
+    upg9Cost   = upg9Cost.add(2);
+    updateDisplay();
+    updateDisplay2();
+    evalcosts();
+  }
+}
 // no buymaxupg5+ because the caps are too small for them
 function buyMaxUpgrade1() {
   for (let i = 1; i < 5; i++) {
@@ -353,8 +372,6 @@ function buyMaxUpgrade1() {
     updateDisplay();
     updateDisplay2();
   }
-  updateDisplay();
-  updateDisplay2();
 }
 
 function buyMaxUpgrade2() {
@@ -432,6 +449,15 @@ function buyMaxUpgrade4() {
   }
 }
 
+function rebautobuy() {
+  if (amountUpg8.gt(new ExpantaNum(0))) {
+    buyMaxUpgrade1();
+    buyMaxUpgrade2();
+    buyMaxUpgrade3();
+    buyMaxUpgrade4();
+  }
+}
+
 function clampUpgradesToCaps() {
   if (amountUpg1.gt(amountUpg1cap)) amountUpg1 = amountUpg1cap;
   if (amountUpg2.gt(amountUpg2cap)) amountUpg2 = amountUpg2cap;
@@ -457,7 +483,7 @@ function evalBase() {
 function evalpow() {
   const original = new ExpantaNum(1);
   const upg1 = amountUpg4.mul(new ExpantaNum(0.0001));
-  pow = ExpantaNum.mul(original.add(upg1).add(amountUpg5),10000).ceil().div(10000);
+  pow = ExpantaNum.mul(original.add(upg1).add(amountUpg5).pow(ExpantaNum.pow(3,10)),10000).ceil().div(10000);
 }
 function evalcap() {
   const original = new ExpantaNum(40000);
@@ -510,6 +536,7 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("upg6Cost").innerText = format(upg6Cost, 3);
   document.getElementById("upg7Cost").innerText = format(upg7Cost, 3);
   document.getElementById("upg8Cost").innerText = format(upg8Cost, 0);
+  document.getElementById("upg9Cost").innerText = format(upg9Cost, 0);
   document.getElementById("upg1amount").innerText = format(amountUpg1, 0);
   document.getElementById("upg2amount").innerText = format(amountUpg2, 0);
   document.getElementById("upg3amount").innerText = format(amountUpg3, 0);
@@ -518,6 +545,7 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("upg6amount").innerText = format(amountUpg6, 0);
   document.getElementById("upg7amount").innerText = format(amountUpg7, 0);
   document.getElementById("upg8amount").innerText = format(amountUpg8, 0);
+  document.getElementById("upg9amount").innerText = format(amountUpg9, 0);
   document.getElementById("upg1cap").innerText = `${format(amountUpg1cap, 0)}`;
   document.getElementById("upg2cap").innerText = `${format(amountUpg2cap, 0)}`;
   document.getElementById("upg3cap").innerText = `${format(amountUpg3cap, 0)}`;
@@ -526,10 +554,11 @@ function updateDisplay2() { // this is for more speed incase your device is poor
   document.getElementById("upg6cap").innerText = `${format(amountUpg6cap, 0)}`;
   document.getElementById("upg7cap").innerText = `${format(amountUpg7cap, 0)}`;
   document.getElementById("upg8cap").innerText = `${format(amountUpg8cap, 0)}`;
+  document.getElementById("upg9cap").innerText = `${format(amountUpg9cap, 0)}`;
   document.getElementById("Multi").innerText = `Multi: ${format(multi, 3)}`;
   document.getElementById("Base").innerText = `Base: ${format(base, 1)}`;
   document.getElementById("pow").innerText = ExpantaNum.eq(pow,1) ? "" : `Power: ${format(pow,4)}`;
-document.getElementById("Formula").innerText =
+  document.getElementById("Formula").innerText =
   `Value = ${format(base,1)}↑↑(${
     ExpantaNum.eq(pow,1)
       ? `slog(value)×${format(multi,3)}`
@@ -546,7 +575,9 @@ function formatTime(seconds) {
 setInterval(() => {
   document.getElementById("playtime").innerText = `Playtime: ${formatTime(playtime)}`;
 }, 1000);
-
+setInterval(() => {
+  rebautobuy();
+}, 100);
 setInterval(() => {
   updateValue();
   updateDisplay();
