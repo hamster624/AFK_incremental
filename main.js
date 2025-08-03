@@ -483,7 +483,7 @@ function evalBase() {
 function evalpow() {
   const original = new ExpantaNum(1);
   const upg1 = amountUpg4.mul(new ExpantaNum(0.0001));
-  pow = ExpantaNum.mul(original.add(upg1).add(amountUpg5).pow(ExpantaNum.pow(3,10)),10000).ceil().div(10000);
+  pow = ExpantaNum.mul(original.add(upg1).add(amountUpg5).pow(ExpantaNum.pow(3,amountUpg9)),10000).ceil().div(10000);
 }
 function evalcap() {
   const original = new ExpantaNum(40000);
@@ -594,3 +594,4 @@ window.onload = () => {
   loadGame();
   document.getElementById("playtime").innerText = `Playtime: ${formatTime(playtime)}`;
 };
+
