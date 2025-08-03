@@ -28,14 +28,11 @@ window.addEventListener('DOMContentLoaded', () => {
         const obfuscated = decoded.slice(1);
         const deob = deobfuscateData(obfuscated, shift);
         const gameData = JSON.parse(deob);
-
-        // Assuming ExpantaNum and your variables exist and are global:
         value = new ExpantaNum(gameData.value || 10);
         rebirths = new ExpantaNum(gameData.rebirths || 0);
         transcends = new ExpantaNum(gameData.transcends || 0);
         transcended = new ExpantaNum(gameData.transcended || 0);
         playtime = gameData.playtime || 0;
-
         upg1Cost = new ExpantaNum(gameData.upg1Cost || 3);
         upg2Cost = new ExpantaNum(gameData.upg2Cost || 10);
         upg3Cost = new ExpantaNum(gameData.upg3Cost || 750);
@@ -44,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
         upg6Cost = new ExpantaNum(gameData.upg6Cost || 10);
         upg7Cost = new ExpantaNum(gameData.upg7Cost || 20);
         upg8Cost = new ExpantaNum(gameData.upg8Cost || 50);
-
+        upg9Cost = new ExpantaNum(gameData.upg9Cost || 60);
         amountUpg1 = new ExpantaNum(gameData.amountUpg1 || 0);
         amountUpg2 = new ExpantaNum(gameData.amountUpg2 || 0);
         amountUpg3 = new ExpantaNum(gameData.amountUpg3 || 0);
@@ -53,7 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
         amountUpg6 = new ExpantaNum(gameData.amountUpg6 || 0);
         amountUpg7 = new ExpantaNum(gameData.amountUpg7 || 0);
         amountUpg8 = new ExpantaNum(gameData.amountUpg8 || 0);
-
+        amountUpg9 = new ExpantaNum(gameData.amountUpg9 || 0);
         amountUpg1cap = new ExpantaNum(gameData.amountUpg1cap || 40000);
         amountUpg2cap = new ExpantaNum(gameData.amountUpg2cap || 15000);
         amountUpg3cap = new ExpantaNum(gameData.amountUpg3cap || 30000);
@@ -62,7 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
         amountUpg6cap = new ExpantaNum(gameData.amountUpg6cap || 5);
         amountUpg7cap = new ExpantaNum(gameData.amountUpg7cap || 2);
         amountUpg8cap = new ExpantaNum(gameData.amountUpg8cap || 1);
-
+        amountUpg9cap = new ExpantaNum(gameData.amountUpg9cap || 10);
         updateDisplay();
         updateDisplay2();
         saveGame();
@@ -93,6 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
       upg6Cost: upg6Cost.toString(),
       upg7Cost: upg7Cost.toString(),
       upg8Cost: upg8Cost.toString(),
+      upg9Cost: upg9Cost.toString(),
       amountUpg1: amountUpg1.toString(),
       amountUpg2: amountUpg2.toString(),
       amountUpg3: amountUpg3.toString(),
@@ -101,6 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
       amountUpg6: amountUpg6.toString(),
       amountUpg7: amountUpg7.toString(),
       amountUpg8: amountUpg8.toString(),
+      amountUpg9: amountUpg9.toString(),
       amountUpg1cap: amountUpg1cap.toString(),
       amountUpg2cap: amountUpg2cap.toString(),
       amountUpg3cap: amountUpg3cap.toString(),
@@ -109,6 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
       amountUpg6cap: amountUpg6cap.toString(),
       amountUpg7cap: amountUpg7cap.toString(),
       amountUpg8cap: amountUpg8cap.toString(),
+      amountUpg9cap: amountUpg9cap.toString(),
     });
 
     const { obfuscatedData, shift } = obfuscateData(saveData);
@@ -138,6 +138,7 @@ function resetGame() {
   amountUpg6 = new ExpantaNum(0);
   amountUpg7 = new ExpantaNum(0);
   amountUpg8 = new ExpantaNum(0);
+  amountUpg9 = new ExpantaNum(0);
   amountUpg1cap = new ExpantaNum(40000);
   amountUpg2cap = new ExpantaNum(15000);
   amountUpg3cap = new ExpantaNum(30000);
@@ -146,6 +147,7 @@ function resetGame() {
   amountUpg6cap = new ExpantaNum(5);
   amountUpg7cap = new ExpantaNum(2);
   amountUpg8cap = new ExpantaNum(1);
+  amountUpg9cap = new ExpantaNum(10);
   upg1Cost = new ExpantaNum(3);
   upg2Cost = new ExpantaNum(10);
   upg3Cost = new ExpantaNum(750);
@@ -154,6 +156,7 @@ function resetGame() {
   upg6Cost = new ExpantaNum(10);
   upg7Cost = new ExpantaNum(20);
   upg8Cost = new ExpantaNum(50);
+  upg9Cost = new ExpantaNum(60);
   localStorage.removeItem("afk_save");
   saveGame();
   updateDisplay();
