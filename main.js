@@ -515,7 +515,7 @@ function updateDisplay() {
   document.getElementById("willgainreb").innerText = 
     `Will gain rebirths: ${format(currentRebGain, 3)} ${RebOoMs}`;
   document.getElementById("willgaintran").innerText = 
-    `Will gain transcend: ${format(isNaN(value.slog().log10().log10().log10().add(1)) ? 0 : value.slog().log10().log10().log10().add(1),3)}`;
+    `Will gain transcend: ${format(ExpantaNum.isNaN(value.slog().log10().log10().log10().add(1)) ? 1 : value.slog().log10().log10().log10().add(1),3)}`;
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
   prevValue = currentValue;
   prevReb = currentRebGain;
@@ -594,4 +594,5 @@ window.onload = () => {
   loadGame();
   document.getElementById("playtime").innerText = `Playtime: ${formatTime(playtime)}`;
 };
+
 
