@@ -15,14 +15,15 @@ let MAX_LOGP1_REPEATS = 48
 let LOG5E = 0.6213349345596119 // 1 / Math.log(5)
 
 function commaFormat(num, precision) {
-    if (num === null || num === undefined) return "NaN"
-    let zeroCheck = num.array ? num.array[0][1] : num
-    if (zeroCheck < 0.001) return (0).toFixed(precision)
-    let init = num.toString()
-    let portions = init.split(".")
-    portions[0] = portions[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-    return portions[0]
+    if (num === null || num === undefined) return "NaN";
+    let zeroCheck = num.array ? num.array[0][1] : num;
+    if (zeroCheck < 0.001) return (0).toFixed(precision);
+    let init = Number(num).toFixed(precision);
+    let portions = init.split(".");
+    portions[0] = portions[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return portions.length > 1 ? portions[0] + "." + portions[1] : portions[0];
 }
+
 
 function regularFormat(num, precision) {
     if (isNaN(num)) return "NaN"
@@ -136,10 +137,10 @@ function format(num, precision=2, small=false) {
     if (num.abs().lt(1e-308)) return (0).toFixed(precision)
     if (num.sign < 0) return "-" + format(num.neg(), precision)
     if (num.isInfinite()) return "Infinity"
-    if (num.lt("0.0001")) { return format(num.rec(), precision) + "⁻¹" }
+    if (num.lt("0.0001")) { return "1/" + format(num.rec(), precision)}
     else if (num.lt(1)) return regularFormat(num, precision + (small ? 2 : 0))
     else if (num.lt(1000)) return regularFormat(num, precision)
-    else if (num.lt(1e9)) return commaFormat(num)
+    else if (num.lt(1e9)) return commaFormat(num, precision)
     else if (num.lt("10^^5")) { // 1e9 ~ 1F5
         let bottom = arraySearch(array, 0)
         let rep = arraySearch(array, 1)-1
