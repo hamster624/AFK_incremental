@@ -452,7 +452,7 @@ function buyUpgrade10() {
   if (prestige.gte(upg10Cost) && amountUpg10.lt(amountUpg10cap)) {
     prestige = prestige.sub(upg10Cost);
     amountUpg10 = amountUpg10.add(1);
-    upg10Cost = upg10Cost.mul(1.1);
+    upg10Cost = upg10Cost.mul(1.2);
     updateDisplay();
     updateDisplay2();
     evalcosts();
@@ -462,7 +462,7 @@ function buyUpgrade11() {
   if (prestige.gte(upg11Cost) && amountUpg11.lt(amountUpg11cap)) {
     prestige = prestige.sub(upg11Cost);
     amountUpg11 = amountUpg11.add(1);
-    upg11Cost = upg11Cost.mul(1.2);
+    upg11Cost = upg11Cost.mul(1.3);
     updateDisplay();
     updateDisplay2();
     evalcosts();
@@ -472,7 +472,7 @@ function buyUpgrade12() {
   if (prestige.gte(upg12Cost) && amountUpg12.lt(amountUpg12cap)) {
     prestige = prestige.sub(upg12Cost);
     amountUpg12 = amountUpg12.add(1);
-    upg12Cost = upg12Cost.mul(1.2);
+    upg12Cost = upg12Cost.mul(1.3);
     updateDisplay();
     updateDisplay2();
     evalcosts();
@@ -609,7 +609,7 @@ function evalBase() {
 function evalpow() {
   const original = new ExpantaNum(1);
   const upg1 = amountUpg4.mul(new ExpantaNum(0.0001));
-  let base = ExpantaNum.mul(ExpantaNum.pow(10, amountUpg10),
+  let base = ExpantaNum.mul(ExpantaNum.pow(5, amountUpg10),
     original.add(upg1).add(amountUpg5).pow(ExpantaNum.pow(4, amountUpg9))
   );
   exponent = ExpantaNum(ultralog(value, 3)).pow(amountUpg10);
@@ -628,9 +628,15 @@ function evalcosts() {
   const upg2 = new ExpantaNum(10);
   const upg3 = new ExpantaNum(750);
   const upg4 = new ExpantaNum(1250);
+  const upg10 = new ExpantaNum(1);
+  const upg11 = new ExpantaNum(1);
+  const upg12 = new ExpantaNum(2);  
   upg2Cost = ExpantaNum.root(upg2.mul(ExpantaNum.pow(1.5, amountUpg2)), amountUpg7.add(1));
   upg3Cost = ExpantaNum.root(upg3.mul(ExpantaNum.pow(1.25, amountUpg3)), amountUpg7.add(1));
   upg4Cost = ExpantaNum.root(upg4.mul(ExpantaNum.pow(1.4, amountUpg4)), amountUpg7.add(1));
+  upg10Cost = upg10.mul(ExpantaNum.pow(1.2, amountUpg10));
+  upg11Cost = upg11.mul(ExpantaNum.pow(1.3, amountUpg11));
+  upg12Cost = upg12.mul(ExpantaNum.pow(1.3, amountUpg12));
 }
 function autoreb() {
   if (amountUpg8.gt(new ExpantaNum(0))) {
@@ -655,7 +661,7 @@ function updateDisplay() {
   document.getElementById("willgainpres").innerText = 
     `Will gain transcend: ${format(isNaN(value.slog().slog().add(1).div(5)) ? 0 : value.slog().slog().add(1).div(5),5)}`;
   document.getElementById("upg10boost").innerText = 
-    `Boost: ${format(ExpantaNum(ultralog(value, 3)).mul(amountUpg10),4)}`;
+    `Boost: ${format(ExpantaNum(ultralog(value, 3)).pow(amountUpg10),4)}`;
   document.getElementById("rebirths").innerText = `Rebirths: ${format(rebirths, 3)}`;
   prevValue = currentValue;
   prevReb = currentRebGain;
