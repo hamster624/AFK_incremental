@@ -609,18 +609,11 @@ function evalBase() {
 function evalpow() {
   const original = new ExpantaNum(1);
   const upg1 = amountUpg4.mul(new ExpantaNum(0.0001));
-  let base = ExpantaNum.mul(
-    ExpantaNum.pow(1000, amountUpg10),
+  let base = ExpantaNum.mul(ExpantaNum.pow(10, amountUpg10),
     original.add(upg1).add(amountUpg5).pow(ExpantaNum.pow(4, amountUpg9))
   );
-  let exponent = new ExpantaNum(1);
-  if (!amountUpg10.eq(0)) {
-    exponent = ExpantaNum(ultralog(value, 3)).mul(amountUpg10);
-  }
-  let exponent2 = new ExpantaNum(1);
-  if (!amountUpg12.eq(0)) {
-    exponent2 = ExpantaNum.pow(2, amountUpg12);
-  }
+  exponent = ExpantaNum(ultralog(value, 3)).pow(amountUpg10);
+  exponent2 = ExpantaNum.pow(10, amountUpg12);
   pow = base.pow(exponent).pow(exponent2).mul(10000).ceil().div(10000);
 
 }
