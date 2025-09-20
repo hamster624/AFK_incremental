@@ -615,7 +615,7 @@ function evalpow() {
   );
   let exponent = new ExpantaNum(1);
   if (!amountUpg10.eq(0)) {
-    exponent = ExpantaNum(ultralog(value, 3)).mul(amountUpg10).pow(ExpantaNum.pow(2, amountUpg12));
+    exponent = ExpantaNum(ultralog(value, 3)).mul(amountUpg10);
   }
   let exponent2 = new ExpantaNum(1);
   if (!amountUpg12.eq(0)) {
