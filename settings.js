@@ -32,6 +32,8 @@ window.addEventListener('DOMContentLoaded', () => {
         rebirths = new ExpantaNum(gameData.rebirths || 0);
         transcends = new ExpantaNum(gameData.transcends || 0);
         transcended = new ExpantaNum(gameData.transcended || 0);
+        prestige = new ExpantaNum(gameData.prestige || 0);
+        prestiged = new ExpantaNum(gameData.prestiged || 0);
         playtime = gameData.playtime || 0;
         upg1Cost = new ExpantaNum(gameData.upg1Cost || 3);
         upg2Cost = new ExpantaNum(gameData.upg2Cost || 10);
@@ -42,6 +44,9 @@ window.addEventListener('DOMContentLoaded', () => {
         upg7Cost = new ExpantaNum(gameData.upg7Cost || 20);
         upg8Cost = new ExpantaNum(gameData.upg8Cost || 50);
         upg9Cost = new ExpantaNum(gameData.upg9Cost || 60);
+        upg10Cost = new ExpantaNum(gameData.upg10Cost || 1);
+        upg11Cost = new ExpantaNum(gameData.upg11Cost || 1);
+        upg12Cost = new ExpantaNum(gameData.upg12Cost || 2);
         amountUpg1 = new ExpantaNum(gameData.amountUpg1 || 0);
         amountUpg2 = new ExpantaNum(gameData.amountUpg2 || 0);
         amountUpg3 = new ExpantaNum(gameData.amountUpg3 || 0);
@@ -51,6 +56,9 @@ window.addEventListener('DOMContentLoaded', () => {
         amountUpg7 = new ExpantaNum(gameData.amountUpg7 || 0);
         amountUpg8 = new ExpantaNum(gameData.amountUpg8 || 0);
         amountUpg9 = new ExpantaNum(gameData.amountUpg9 || 0);
+        amountUpg10 = new ExpantaNum(gameData.amountUpg10 || 0);
+        amountUpg11 = new ExpantaNum(gameData.amountUpg11 || 0);
+        amountUpg12 = new ExpantaNum(gameData.amountUpg12 || 0);
         amountUpg1cap = new ExpantaNum(gameData.amountUpg1cap || 40000);
         amountUpg2cap = new ExpantaNum(gameData.amountUpg2cap || 15000);
         amountUpg3cap = new ExpantaNum(gameData.amountUpg3cap || 30000);
@@ -60,6 +68,9 @@ window.addEventListener('DOMContentLoaded', () => {
         amountUpg7cap = new ExpantaNum(gameData.amountUpg7cap || 2);
         amountUpg8cap = new ExpantaNum(gameData.amountUpg8cap || 1);
         amountUpg9cap = new ExpantaNum(gameData.amountUpg9cap || 10);
+        amountUpg10cap = new ExpantaNum(gameData.amountUpg10cap || 10);
+        amountUpg11cap = new ExpantaNum(gameData.amountUpg11cap || 5);
+        amountUpg12cap = new ExpantaNum(gameData.amountUpg12cap || 5);
         updateDisplay();
         updateDisplay2();
         saveGame();
@@ -77,38 +88,49 @@ window.addEventListener('DOMContentLoaded', () => {
 
   saveButton.onclick = () => {
     const saveData = JSON.stringify({
-      value: value.toString(),
-      rebirths: rebirths.toString(),
-      transcends: transcends.toString(),
-      transcended: transcended.toString(),
-      playtime: playtime.toString(),
-      upg1Cost: upg1Cost.toString(),
-      upg2Cost: upg2Cost.toString(),
-      upg3Cost: upg3Cost.toString(),
-      upg4Cost: upg4Cost.toString(),
-      upg5Cost: upg5Cost.toString(),
-      upg6Cost: upg6Cost.toString(),
-      upg7Cost: upg7Cost.toString(),
-      upg8Cost: upg8Cost.toString(),
-      upg9Cost: upg9Cost.toString(),
-      amountUpg1: amountUpg1.toString(),
-      amountUpg2: amountUpg2.toString(),
-      amountUpg3: amountUpg3.toString(),
-      amountUpg4: amountUpg4.toString(),
-      amountUpg5: amountUpg5.toString(),
-      amountUpg6: amountUpg6.toString(),
-      amountUpg7: amountUpg7.toString(),
-      amountUpg8: amountUpg8.toString(),
-      amountUpg9: amountUpg9.toString(),
-      amountUpg1cap: amountUpg1cap.toString(),
-      amountUpg2cap: amountUpg2cap.toString(),
-      amountUpg3cap: amountUpg3cap.toString(),
-      amountUpg4cap: amountUpg4cap.toString(),
-      amountUpg5cap: amountUpg5cap.toString(),
-      amountUpg6cap: amountUpg6cap.toString(),
-      amountUpg7cap: amountUpg7cap.toString(),
-      amountUpg8cap: amountUpg8cap.toString(),
-      amountUpg9cap: amountUpg9cap.toString(),
+        value: value.toString(),
+        rebirths: rebirths.toString(),
+        transcends: transcends.toString(),
+        transcended: transcended.toString(),
+        prestige: prestige.toString(),
+        prestiged: prestiged.toString(),
+        playtime: playtime.toString(),
+        upg1Cost: upg1Cost.toString(),
+        upg2Cost: upg2Cost.toString(),
+        upg3Cost: upg3Cost.toString(),
+        upg4Cost: upg4Cost.toString(),
+        upg5Cost: upg5Cost.toString(),
+        upg6Cost: upg6Cost.toString(),
+        upg7Cost: upg7Cost.toString(),
+        upg8Cost: upg8Cost.toString(),
+        upg9Cost: upg9Cost.toString(),
+        upg10Cost: upg10Cost.toString(),
+        upg11Cost: upg11Cost.toString(),
+        upg12Cost: upg12Cost.toString(),
+        amountUpg1: amountUpg1.toString(),
+        amountUpg2: amountUpg2.toString(),
+        amountUpg3: amountUpg3.toString(),
+        amountUpg4: amountUpg4.toString(),
+        amountUpg5: amountUpg5.toString(),
+        amountUpg6: amountUpg6.toString(),
+        amountUpg7: amountUpg7.toString(),
+        amountUpg8: amountUpg8.toString(),
+        amountUpg9: amountUpg9.toString(),
+        amountUpg10: amountUpg10.toString(),
+        amountUpg11: amountUpg11.toString(),
+        amountUpg12: amountUpg12.toString(),
+        amountUpg1cap: amountUpg1cap.toString(),
+        amountUpg2cap: amountUpg2cap.toString(),
+        amountUpg3cap: amountUpg3cap.toString(),
+        amountUpg4cap: amountUpg4cap.toString(),
+        amountUpg5cap: amountUpg5cap.toString(),
+        amountUpg6cap: amountUpg6cap.toString(),
+        amountUpg7cap: amountUpg7cap.toString(),
+        amountUpg8cap: amountUpg8cap.toString(),
+        amountUpg9cap: amountUpg9cap.toString(),
+        amountUpg10cap: amountUpg10cap.toString(),
+        amountUpg11cap: amountUpg11cap.toString(),
+        amountUpg12cap: amountUpg12cap.toString(),
     });
 
     const { obfuscatedData, shift } = obfuscateData(saveData);
@@ -129,6 +151,8 @@ function resetGame() {
   pow = new ExpantaNum(1);
   transcends = new ExpantaNum(0);
   transcended = new ExpantaNum(0); 
+  prestige = new ExpantaNum(0);
+  prestiged = new ExpantaNum(0);
   playtime = 0;
   amountUpg1 = new ExpantaNum(0);
   amountUpg2 = new ExpantaNum(0);
@@ -139,6 +163,9 @@ function resetGame() {
   amountUpg7 = new ExpantaNum(0);
   amountUpg8 = new ExpantaNum(0);
   amountUpg9 = new ExpantaNum(0);
+  amountUpg10 = new ExpantaNum(0);
+  amountUpg11 = new ExpantaNum(0);
+  amountUpg12 = new ExpantaNum(0);
   amountUpg1cap = new ExpantaNum(40000);
   amountUpg2cap = new ExpantaNum(15000);
   amountUpg3cap = new ExpantaNum(30000);
@@ -148,6 +175,9 @@ function resetGame() {
   amountUpg7cap = new ExpantaNum(2);
   amountUpg8cap = new ExpantaNum(1);
   amountUpg9cap = new ExpantaNum(10);
+  amountUpg10cap = new ExpantaNum(10);
+  amountUpg11cap = new ExpantaNum(5);
+  amountUpg12cap = new ExpantaNum(5);
   upg1Cost = new ExpantaNum(3);
   upg2Cost = new ExpantaNum(10);
   upg3Cost = new ExpantaNum(750);
@@ -157,6 +187,9 @@ function resetGame() {
   upg7Cost = new ExpantaNum(20);
   upg8Cost = new ExpantaNum(50);
   upg9Cost = new ExpantaNum(60);
+  upg10Cost = new ExpantaNum(1);
+  upg11Cost = new ExpantaNum(5);
+  upg12Cost = new ExpantaNum(10);
   localStorage.removeItem("afk_save");
   saveGame();
   updateDisplay();
@@ -270,49 +303,63 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 // switch tab mechanism
 });
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
 
-      if (tab === 'game') {
-        document.getElementById('game-wrapper').classList.add('active');
-        document.querySelectorAll('.tab-button')[0].classList.add('active');
-      } else if (tab === 'transcend') {
-        document.getElementById('transcend-wrapper').classList.add('active');
-        document.querySelectorAll('.tab-button').forEach(btn => {
-          if (btn.textContent.includes('Transcend')) btn.classList.add('active');
-        });
-      } else if (tab === 'settings') {
-        document.getElementById('settings-wrapper').classList.add('active');
-        document.querySelectorAll('.tab-button').forEach(btn => {
-          if (btn.textContent.includes('Settings')) btn.classList.add('active');
-        });
-      }
-    }
+  if (tab === 'game') {
+    document.getElementById('game-wrapper').classList.add('active');
+    document.querySelectorAll('.tab-button')[0].classList.add('active');
+  } else if (tab === 'transcend') {
+    document.getElementById('transcend-wrapper').classList.add('active');
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      if (btn.textContent.includes('Transcend')) btn.classList.add('active');
+    });
+  } else if (tab === 'prestige') {
+    document.getElementById('prestige-wrapper').classList.add('active');
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      if (btn.textContent.includes('Prestige')) btn.classList.add('active');
+    });
+  } else if (tab === 'settings') {
+    document.getElementById('settings-wrapper').classList.add('active');
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      if (btn.textContent.includes('Settings')) btn.classList.add('active');
+    });
+  }
+}
 
-    const TRANSCEND_UNLOCK_REQ = ExpantaNum("10^^ee10000");
+const TRANSCEND_UNLOCK_REQ = ExpantaNum("10^^ee10000");
+const PRESTIGE_UNLOCK_REQ = ExpantaNum("10^^eee10");
 
-    function updateTabLockStatus() {
-      const buttons = [
-        document.getElementById("transcend-tab-button"),
-        document.getElementById("transcend-tab-button-2"),
-        document.getElementById("transcend-tab-button-3")
-      ];
+function updateTabLockStatus() {
+  // Transcend buttons
+  const transcendButtons = document.querySelectorAll(".transcend-tab-button");
+  const transcendUnlocked = value.gte(TRANSCEND_UNLOCK_REQ) || transcended.eq(1);
+  const transcendLabel = transcendUnlocked ? "Transcend" : "Transcend (Locked - Fee10,000 required)";
+  transcendButtons.forEach(btn => {
+    btn.textContent = transcendLabel;
+    btn.classList.toggle("locked", !transcendUnlocked);
+  });
 
-      const unlocked = value.gte(TRANSCEND_UNLOCK_REQ) || transcended.eq(1);
-      const label = unlocked ? "Transcend" : "Transcend (Locked - Fee10,000 required)";
+  // Prestige buttons
+  const prestigeButtons = document.querySelectorAll(".prestige-tab-button");
+  const prestigeUnlocked = value.gte(PRESTIGE_UNLOCK_REQ) || (typeof prestiged !== "undefined" && prestiged.eq(1));
+  const prestigeLabel = prestigeUnlocked ? "Prestige" : "Prestige (Locked - Feee10 required)";
+  prestigeButtons.forEach(btn => {
+    btn.textContent = prestigeLabel;
+    btn.classList.toggle("locked", !prestigeUnlocked);
+  });
+}
 
-      buttons.forEach(btn => {
-        if (!btn) return;
-        btn.textContent = label;
-        btn.classList.toggle("locked", !unlocked);
-      });
-    }
+function tryOpenTranscend() {
+  if (value.gte(TRANSCEND_UNLOCK_REQ) || transcended.eq(1)) {
+    switchTab("transcend");
+  }
+}
+function tryOpenPrestige() {
+  if (value.gte(PRESTIGE_UNLOCK_REQ) || prestiged?.eq?.(1)) {
+    switchTab("prestige");
+  }
+}
 
-    function tryOpenTranscend() {
-      if (value.gte(TRANSCEND_UNLOCK_REQ) || transcended.eq(1)) {
-        switchTab("transcend");
-      }
-    }
-
-    setInterval(updateTabLockStatus, 20);
+setInterval(updateTabLockStatus, 20);
