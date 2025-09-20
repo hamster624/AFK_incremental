@@ -16,7 +16,8 @@
   <div id="game-wrapper" class="tab-content active">
     <div id="tab-bar">
       <button class="tab-button active" onclick="switchTab('game')">Game</button>
-      <button id="transcend-tab-button" class="tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button transcend-tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button prestige-tab-button locked" onclick="tryOpenPrestige()">Prestige (Locked - Feee10 required)</button>
       <button class="tab-button" onclick="switchTab('settings')">Other</button>
     </div>
 
@@ -56,7 +57,8 @@
   <div id="transcend-wrapper" class="tab-content">
     <div id="tab-bar">
       <button class="tab-button" onclick="switchTab('game')">Game</button>
-      <button id="transcend-tab-button-2" class="tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button transcend-tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button prestige-tab-button locked" onclick="tryOpenPrestige()">Prestige (Locked - Feee10 required)</button>
       <button class="tab-button" onclick="switchTab('settings')">Other</button>
     </div>
 
@@ -76,17 +78,44 @@
       <button onclick="buyUpgrade8()">Transcend upgrade 4: Automatically gain 100%/s rebirths and autobuy rebirth upg 1-4 every 100ms | Cost: <span id="upg8Cost">50</span> | Bought: <span id="upg8amount">0</span>/<span id="upg8cap">1</span></button>
     </div>
     <div class="upgrade">
-      <button onclick="buyUpgrade9()">Transcend upgrade 5: ^3 Power amount each time | Cost: <span id="upg9Cost">60</span> | Bought: <span id="upg9amount">0</span>/<span id="upg9cap">10</span></button>
+      <button onclick="buyUpgrade9()">Transcend upgrade 5: ^4 Power amount each time | Cost: <span id="upg9Cost">60</span> | Bought: <span id="upg9amount">0</span>/<span id="upg9cap">10</span></button>
     </div>
     <button onclick="transcend()">Transcend (Cost: Fee10,000)</button>
     <div id="willgaintran">Will gain transcend:</div>    
+  </div>
+
+  <!-- PRESTIGE TAB -->
+  <div id="prestige-wrapper" class="tab-content">
+    <div id="tab-bar">
+      <button class="tab-button" onclick="switchTab('game')">Game</button>
+      <button class="tab-button transcend-tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button prestige-tab-button locked" onclick="tryOpenPrestige()">Prestige (Locked - Feee10 required)</button>
+      <button class="tab-button" onclick="switchTab('settings')">Other</button>
+    </div>
+
+    <h1>Prestige Layer</h1>
+    <div id="prestige">Prestige Points: 0</div>
+
+    <div class="upgrade">
+      <button onclick="buyUpgrade10()">Prestige upgrade 1: 10*power and then power^(plog(value)*times bought) (plog = penta-log) | Cost: <span id="upg10Cost">1</span> | Bought: <span id="upg10amount">0</span>/<span id="upg10cap">10</span> | <span id="upg10boost">1</span> </button>
+    </div>
+    <div class="upgrade">
+      <button onclick="buyUpgrade11()">Prestige upgrade 2: rebirth upg4 cap ^ 3 and rebirths = (rebirths+times bought)^1000 | Cost: <span id="upg11Cost">5</span> | Bought: <span id="upg11amount">0</span>/<span id="upg11cap">5</span></button>
+    </div>
+    <div class="upgrade">
+      <button onclick="buyUpgrade12()">Prestige upgrade 3: ^2 Power amount each time | Cost: <span id="upg12Cost">10</span> | Bought: <span id="upg12amount">0</span>/<span id="upg12cap">5</span></button>
+    </div>
+    <button onclick="prestiges()">Prestige (Cost: Feee10)<br><small><em>Note: this doesn't remove Transcend upg 4</em></small></button>
+
+    <div id="willgainpres">Will gain prestige:</div>
   </div>
 
   <!-- SETTINGS TAB -->
   <div id="settings-wrapper" class="tab-content">
     <div id="tab-bar">
       <button class="tab-button" onclick="switchTab('game')">Game</button>
-      <button id="transcend-tab-button-3" class="tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button transcend-tab-button locked" onclick="tryOpenTranscend()">Transcend (Locked - Fee10,000 required)</button>
+      <button class="tab-button prestige-tab-button locked" onclick="tryOpenPrestige()">Prestige (Locked - Feee10 required)</button>
       <button class="tab-button active" onclick="switchTab('settings')">Other</button>
     </div>
 
